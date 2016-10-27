@@ -1,8 +1,13 @@
 <div class="jumbotron">
   <h1>Welcome, {{name}}!</h1>
   <h4>Submit or View Time Cards</h4>
-  <p>Start Time: <input id="username" type=date></input></p>
-  <p>End Time: <input type=date></input></p>
-  <button class="btn btn-lg btn-primary" ng-click="storeName()">Submit Time Card</span></button>
-  <button class="btn btn-lg btn-primary" ng-click="storeName()">View Time Cards</button>
+  <p>Start Time: <input id="start" type=time></input></p>
+  <p>End Time: <input id="end" type=time></input></p>
+  <button class="btn btn-lg btn-primary" ng-click="submitTimeCards()">Submit Time Card</span></button>
+  <button class="btn btn-lg btn-primary" ng-click="getTimeCards()">View Time Cards</button>
+  <div class="timecards" ng-repeat="timecard in timecards">
+      <p>Date: {{timecard.date}}</p>
+      <p>Start Time: {{timecard.startTime}}</p>
+      <p>End Time: {{timecard.endTime}}</p>
+  </div>
 </div>
