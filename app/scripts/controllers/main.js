@@ -14,13 +14,13 @@ angular.module('hrappApp')
 
       $scope.addUser = function () {
 
-          var username = document.getElementById("username");
-          var pass = document.getElementById("pass");
+          //var username = document.getElementById("username");
+          //var pass = document.getElementById("pass");
 
           var toPost = {
               id: 0,
-              username: username.value,
-              password: pass.value
+              username: $scope.username,
+              password: $scope.pass
           };
 
           var message;
@@ -33,7 +33,7 @@ angular.module('hrappApp')
           then( function (response) {
               message = response.data.message;
               if (message === "Success!") {
-                  userService.setUser(username.value);
+                  userService.setUser($scope.username);
                   $location.path("/timecard");
               } else {
                   $scope.error = "User already exists!";
@@ -45,13 +45,13 @@ angular.module('hrappApp')
 
       $scope.login = function () {
 
-          var username = document.getElementById("username").value;
-          var pass = document.getElementById("pass").value;
+          //var username = document.getElementById("username").value;
+          //var pass = document.getElementById("pass").value;
           var actualPass;
 
           $http({
               method:'GET',
-              url: 'http://localhost:8080/hrusers/search/findByUsername?username=' + username
+              url: 'http://localhost:8080/hrusers/search/findByUsername?username=' + $scope.username
           }).
           then( function (response) {
 
@@ -59,8 +59,8 @@ angular.module('hrappApp')
                   actualPass = response.data._embedded.users[0].password
               }
 
-              if (pass === actualPass) {
-                  userService.setUser(username);
+              if ($scope.pass === actualPass) {
+                  userService.setUser($scope.username);
                   $location.path("/timecard");
               } else {
                   $scope.error = "Incorrect username or password!";

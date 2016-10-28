@@ -4,14 +4,7 @@ angular.module('hrappApp')
   .controller('TimeCardCtrl', function ($scope, $http, userService) {
 
       $scope.name = userService.getUser();
-
-    //   $http({
-    //       method:'GET',
-    //       url: 'http://localhost:8080/users'
-    //   }).
-    //   then( function (response) {
-    //       $scope.name = response.data[0].username;
-    //   });
+      $scope.error;
 
       $scope.getTimeCards = function () {
 
@@ -20,7 +13,6 @@ angular.module('hrappApp')
               url: 'http://localhost:8080/hrtimecards/search/findByUsername?username=' + $scope.name
           }).
           then( function (response) {
-              console.log(response.data);
               $scope.timecards = response.data._embedded.timecards;
           });
       }
@@ -46,7 +38,10 @@ angular.module('hrappApp')
               data: toPost
           }).
           then( function (response) {
-              console.log(response.data);
+              start.value = "";
+              end.value = "";
+          }, function (response) {
+              Scope.error = "Something went wrong."
           });
       }
 
