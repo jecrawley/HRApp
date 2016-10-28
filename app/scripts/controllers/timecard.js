@@ -4,7 +4,7 @@ angular.module('hrappApp')
   .controller('TimeCardCtrl', function ($scope, $http, userService) {
 
       $scope.name = userService.getUser();
-      $scope.error;
+      //$scope.error;
 
       $scope.getTimeCards = function () {
 
@@ -40,8 +40,11 @@ angular.module('hrappApp')
           then( function (response) {
               start.value = "";
               end.value = "";
+              if (response.data.message === "Error! Time could not be parsed!") {
+                  $scope.error = "Invalid time format.";
+              }
           }, function (response) {
-              Scope.error = "Something went wrong."
+              $scope.error = "Something went wrong."
           });
       }
 
