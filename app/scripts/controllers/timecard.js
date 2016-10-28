@@ -35,6 +35,7 @@ angular.module('hrappApp')
               id: 0,
               startTime: start.value,
               endTime: end.value,
+              username: $scope.name,
               date: date
           };
 
