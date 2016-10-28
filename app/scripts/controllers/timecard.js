@@ -17,10 +17,11 @@ angular.module('hrappApp')
 
           $http({
               method:'GET',
-              url: 'http://localhost:8080/timecards'
+              url: 'http://localhost:8080/hrtimecards/search/findByUsername?username=' + $scope.name
           }).
           then( function (response) {
-              $scope.timecards = response.data;
+              console.log(response.data);
+              $scope.timecards = response.data._embedded.timecards;
           });
       }
 
