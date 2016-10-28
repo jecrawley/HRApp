@@ -8,41 +8,38 @@
  * Controller of the hrappApp
  */
 angular.module('hrappApp')
-  .controller('MainCtrl', function ($scope, $location, $http) {
+  .controller('MainCtrl', function ($scope, $location, $http, userService) {
+
+      $scope.error = "";
+
       $scope.addUser = function () {
 
           var username = document.getElementById("username");
           var pass = document.getElementById("pass");
 
+          var toPost = {
+              id: 0,
+              username: username.value,
+              password: pass.value
+          };
+
+          var message;
+
           $http({
-              method:'GET',
-              url: 'http://localhost:8080/hrdatabase/search/findById?username=' + 0
+              method:'POST',
+              url: 'http://localhost:8080/users',
+              data: toPost
           }).
-
           then( function (response) {
-              var user = response.data._embedded.users[0];
-
-              if (user === undefined && pass.value !== "" ) {
-                  postIt (username.value, pass.value);
+              message = response.data.message;
+              if (message === "Success!") {
+                  userService.setUser(username.value);
+                  $location.path("/timecard");
+              } else {
+                  $scope.error = "User already exists!";
               }
+          }, function (response) {
+              console.log(response);
           });
-
-          var postIt = function (username, password) {
-
-              var toPost = {
-                  id: 0,
-                  username: username,
-                  password: pass.value
-              };
-
-              $http({
-                  method:'POST',
-                  url: 'http://localhost:8080/users',
-                  data: toPost
-              }).
-              then( function (response) {
-                  console.log(response.data);
-              });
-          }
       }
   });

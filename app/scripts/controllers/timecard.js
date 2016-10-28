@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('hrappApp')
-  .controller('TimeCardCtrl', function ($scope, $http) {
-      //$scope.name = userService.getUser();
-      $http({
-          method:'GET',
-          url: 'http://localhost:8080/users'
-      }).
-      then( function (response) {
-          $scope.name = response.data[0].username;
-      });
+  .controller('TimeCardCtrl', function ($scope, $http, userService) {
+
+      $scope.name = userService.getUser();
+
+    //   $http({
+    //       method:'GET',
+    //       url: 'http://localhost:8080/users'
+    //   }).
+    //   then( function (response) {
+    //       $scope.name = response.data[0].username;
+    //   });
 
       $scope.getTimeCards = function () {
 
@@ -28,8 +30,6 @@ angular.module('hrappApp')
           var end = document.getElementById("end");
           var today = new Date();
           var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-
-          console.log(date);
 
           var toPost = {
               id: 0,
