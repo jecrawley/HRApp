@@ -1,7 +1,12 @@
 .timecards {
     background-color: #DDD;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.timecards button {
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .browsehappy {

@@ -10,5 +10,6 @@
       <p>Date: {{timecard.date}}</p>
       <p>Start Time: {{timecard.startTime}}</p>
       <p>End Time: {{timecard.endTime}}</p>
+      <button class="btn btn-md btn-danger" ng-click="delete(timecard._links.timeCard.href)">Delete</button>
   </div>
 </div>

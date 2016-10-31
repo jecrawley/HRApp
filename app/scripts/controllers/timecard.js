@@ -4,7 +4,6 @@ angular.module('hrappApp')
   .controller('TimeCardCtrl', function ($scope, $http, userService) {
 
       $scope.name = userService.getUser();
-      //$scope.error;
 
       $scope.getTimeCards = function () {
 
@@ -14,6 +13,8 @@ angular.module('hrappApp')
           }).
           then( function (response) {
               $scope.timecards = response.data._embedded.timecards;
+          }, function (response) {
+              $scope.error = "Unable to process request."
           });
       }
 
@@ -44,8 +45,21 @@ angular.module('hrappApp')
                   $scope.error = "Invalid time format.";
               }
           }, function (response) {
-              $scope.error = "Something went wrong."
+              $scope.error = "Unable to process request."
           });
       }
+
+      $scope.delete = function (address) {
+          $http({
+              method:'DELETE',
+              url: address
+          }).
+          then( function (response) {
+              console.log(response);
+              $scope.getTimeCards();
+          }, function (response) {
+              $scope.error = "Unable to process request."
+          });
+    }
 
   });
